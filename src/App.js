@@ -1,8 +1,10 @@
 /** @format */
 
 import React, { useState, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import db, { auth } from './firebase';
+// import { Switch, Route } from 'react-router-dom';
+import db, { auth, provider } from './firebase';
+import { useStateValue } from './StateProvider';
+import { actionTypes } from './reducer';
 import ImageUpload from './components/ImageUpload';
 
 //Images
@@ -17,19 +19,29 @@ import { Modal, Input } from '@material-ui/core';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const [openSignup, setOpenSignup] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
-  const [openSignIn, setOpenSignIn] = useState(false);
+  // const [openSignIn, setOpenSignIn] = useState(false);
+  const [{ userSNS }, dispatch] = useStateValue();
+  // const [state, dispatch] = useStateValue();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
+      if (userSNS || authUser) {
         // user has logged in
-        console.log(authUser);
-        setUser(authUser);
+        console.log('AUTH-USER', authUser);
+        console.log('USER-SNS', userSNS);
+
+        if (userSNS) {
+          setUser(userSNS);
+        } else if (authUser) {
+          setUser(authUser);
+        }
       } else {
         // user has logged out
         setUser(null);
@@ -63,7 +75,8 @@ const App = () => {
       })
       .catch((err) => alert(err.message));
 
-    setOpen(false);
+    setOpenSignup(false);
+    setOpenSignIn(false);
   };
 
   const signIn = (e) => {
@@ -75,10 +88,32 @@ const App = () => {
     setOpenSignIn(false);
   };
 
+  const signInGoogle = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log('GOOGLE', result);
+        dispatch({
+          type: actionTypes.SET_USER,
+          userSNS: result.user,
+        });
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.log(error.message);
+      });
+    setOpenSignIn(false);
+  };
+
   return (
     <div className="app">
       {/* Sign Up */}
-      <Modal open={open} onClose={() => setOpen(false)} className="modal">
+      <Modal
+        open={openSignup}
+        onClose={() => setOpenSignup(false)}
+        className="modal"
+      >
         <div className="modal__container">
           <div className="modal__header">
             <img className="modal__header--logo" src={logo} alt="ogo" />
@@ -142,6 +177,10 @@ const App = () => {
             <button type="submit" className="modal__form--btn" onClick={signIn}>
               Sign In
             </button>
+            <hr />
+            <button onClick={signInGoogle}>Sign In With Google</button>
+            <span>Do you want to join Seolstagram?</span>
+            <a onClick={() => setOpenSignup(true)}> Sign Up</a>
           </form>
         </div>
       </Modal>
@@ -163,7 +202,7 @@ const App = () => {
             ) : (
               <div className="app__loginContainer">
                 <a onClick={() => setOpenSignIn(true)}> Sign In</a>
-                <a onClick={() => setOpen(true)}> Sign Up</a>
+                {/* <a onClick={() => setOpen(true)}> Sign Up</a> */}
               </div>
             )}
           </span>
@@ -174,6 +213,7 @@ const App = () => {
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
       ) : (
+        // <ImageUpload username={user.displayName} userImg={user.photoURL} />
         <h3 className="login-message">*** Login to upload post ***</h3>
       )}
 
@@ -185,8 +225,9 @@ const App = () => {
           user={user?.displayName}
           username={post.username}
           imageUrl={post.imageUrl}
-          avatar={avatar}
           caption={post.caption}
+          userImg={user?.photoURL}
+          avatar={user?.photoURL}
         />
       ))}
     </div>

@@ -7,9 +7,10 @@ import firebase from 'firebase';
 // CSS & MUI-Icon/Components
 import './Post.scss';
 import { Avatar } from '@material-ui/core';
+import userIcon from '../images/user.png';
 
 function Post(props) {
-  const { imageUrl, avatar, user, username, postId, caption } = props;
+  const { imageUrl, avatar, user, username, postId, caption, userImg } = props;
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
 
@@ -44,6 +45,7 @@ function Post(props) {
         text: comment,
         writer: user,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        userImg: userImg,
       });
       setComment('');
     }
@@ -69,7 +71,12 @@ function Post(props) {
         <div className="post__comments">
           <p className="post__comments--title">Comments 💕</p>
           {comments.map((cmt) => (
-            <p>
+            <p className="post__comments--wrap">
+              <img
+                src={cmt.userImg ? cmt.userImg : userIcon}
+                alt=""
+                className="post__comments--userImg"
+              />
               <strong>{cmt.writer}</strong>
               <span className="post__comments--span">{cmt.text}</span>
             </p>

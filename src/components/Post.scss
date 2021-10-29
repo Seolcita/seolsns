@@ -62,6 +62,18 @@
     margin-bottom: 2rem;
     color: black;
 
+    &--wrap {
+      display: flex;
+      align-items: center;
+    }
+
+    &--userImg {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-right: 0.5rem;
+      border-radius: 50%;
+    }
+
     &--title {
       margin-bottom: 5px;
       color: $color-grey-medium;
