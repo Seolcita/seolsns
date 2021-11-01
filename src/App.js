@@ -211,7 +211,7 @@ const App = () => {
 
       {/* Upload Post */}
       {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
+        <ImageUpload username={user.displayName} userAvatar={user?.photoURL} />
       ) : (
         // <ImageUpload username={user.displayName} userImg={user.photoURL} />
         <h3 className="login-message">*** Login to upload post ***</h3>
@@ -227,7 +227,7 @@ const App = () => {
           imageUrl={post.imageUrl}
           caption={post.caption}
           userImg={user?.photoURL}
-          avatar={user?.photoURL}
+          avatar={post.userAvatar}
         />
       ))}
     </div>

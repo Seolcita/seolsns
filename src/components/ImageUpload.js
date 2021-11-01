@@ -7,7 +7,7 @@ import db, { storage } from '../firebase';
 //CSS
 import './ImageUpload.scss';
 
-function ImageUpload({ username }) {
+function ImageUpload({ username, userAvatar }) {
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
 
@@ -45,6 +45,7 @@ function ImageUpload({ username }) {
             caption: caption,
             imageUrl: url,
             username: username,
+            userAvatar: userAvatar,
           });
 
           setCaption('');

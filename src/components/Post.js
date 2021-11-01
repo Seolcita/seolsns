@@ -72,6 +72,7 @@ function Post(props) {
           <p className="post__comments--title">Comments 💕</p>
           {comments.map((cmt) => (
             <p className="post__comments--wrap">
+              {console.log('CMT USER IMAGAE', cmt.userImg)}
               <img
                 src={cmt.userImg ? cmt.userImg : userIcon}
                 alt=""
