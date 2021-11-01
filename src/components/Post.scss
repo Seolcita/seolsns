@@ -10,11 +10,28 @@
   font-size: 1.5rem;
 
   &__header {
-    display: flex;
-    align-items: center;
     padding: 1rem;
-
     background-color: $color-white;
+    display: flex;
+    justify-content: space-between;
+
+    &--left {
+      display: flex;
+      align-items: center;
+    }
+
+    &--right {
+      display: flex;
+      justify-content: space-evenly;
+
+      button {
+        margin: 0.3rem;
+        padding: 0.3rem;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+    }
 
     &--avatar {
       margin-right: 1.5rem;
