@@ -1,7 +1,7 @@
 /** @format */
 
-import firebase from 'firebase';
 import React, { useState } from 'react';
+import firebase from 'firebase';
 import db, { storage } from '../firebase';
 
 //CSS

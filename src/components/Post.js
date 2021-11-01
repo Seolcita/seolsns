@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import db from '../firebase';
 import firebase from 'firebase';
+import PostUpdate from './PostUpdate';
 
 // CSS & MUI-Icon/Components
 import './Post.scss';
@@ -107,15 +108,9 @@ function Post(props) {
           ''
         )}
 
-        {/* <Modal open={openEditPost} onClose={(e) => setOpenEditPost(false)}>
-          <div>
-            <input
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            ></input>
-          <button onclick={updateComment}></button>
-          </div>
-        </Modal> */}
+        <Modal open={openEditPost} onClose={(e) => setOpenEditPost(false)}>
+          <PostUpdate postId={postId} setOpenEditPost={setOpenEditPost} />
+        </Modal>
       </div>
 
       <div className="post__body">
