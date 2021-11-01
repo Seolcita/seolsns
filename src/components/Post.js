@@ -87,7 +87,7 @@ function Post(props) {
           <input
             type="text"
             className="post__comment--text"
-            placeholder="Add a comment"
+            placeholder={user ? 'Add a comment' : 'Please login to add comment'}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
@@ -95,7 +95,7 @@ function Post(props) {
             type="submit"
             className="post__comment--btn"
             onClick={handleSubmit}
-            disabled={!comment}
+            disabled={!comment || !user}
           >
             Post
           </button>
