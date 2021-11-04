@@ -19,14 +19,12 @@ import { Modal, Input } from '@material-ui/core';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
-  // const [open, setOpen] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
-  // const [openSignIn, setOpenSignIn] = useState(false);
   const [{ userSNS }, dispatch] = useStateValue();
   // const [state, dispatch] = useStateValue();
 
@@ -228,6 +226,7 @@ const App = () => {
           caption={post.caption}
           userImg={user?.photoURL}
           avatar={post.userAvatar}
+          timeStamp={post.timestamp.seconds}
         />
       ))}
     </div>

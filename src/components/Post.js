@@ -13,7 +13,16 @@ import { Modal } from '@material-ui/core';
 import { Edit, DeleteForever, RateReview } from '@material-ui/icons';
 
 function Post(props) {
-  const { imageUrl, avatar, user, username, postId, caption, userImg } = props;
+  const {
+    imageUrl,
+    avatar,
+    user,
+    username,
+    postId,
+    caption,
+    userImg,
+    timeStamp,
+  } = props;
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
   const [openEditPost, setOpenEditPost] = useState(false);
@@ -27,7 +36,6 @@ function Post(props) {
       .collection('posts')
       .doc(postId)
       .collection('comments')
-      // .orderBy('timestamp', 'desc')
       .orderBy('timestamp', 'asc')
       .onSnapshot((snapshot) => {
         setComments(
@@ -84,6 +92,22 @@ function Post(props) {
     console.log('STATE ++++ Comment ID +++++++', commentId);
   };
 
+  const postTime = (timeStamp) => {
+    const postTimeInMs = timeStamp * 1000;
+
+    const calcDayPassed = (today, postDay) =>
+      Math.round(Math.abs(today - postDay) / (1000 * 60 * 60 * 24));
+
+    const daysPassed = calcDayPassed(new Date(), new Date(postTimeInMs));
+
+    if (daysPassed === 0) return 'Today';
+    if (daysPassed === 1) return 'Yesterday';
+    if (daysPassed <= 7) return `${daysPassed} days ago`;
+    else {
+      return new Intl.DateTimeFormat('en-us').format(postTimeInMs);
+    }
+  };
+
   return (
     <div className="post">
       <div className="post__header">
@@ -93,7 +117,11 @@ function Post(props) {
             alt="User Avatar"
             src={avatar}
           />
-          <h3 className="post__header--name">{username}</h3>
+          <div>
+            <h3 className="post__header--name">{username}</h3>
+            {/* <h5 className="post__header--timestamp">{timeStamp}</h5> */}
+            <h5 className="post__header--timestamp">{postTime(timeStamp)}</h5>
+          </div>
         </div>
 
         {user === username ? (
@@ -129,14 +157,19 @@ function Post(props) {
           </p>
           {comments.map(({ id, comment }) => (
             <p className="post__comments--wrap">
-              {console.log('ID & CMT', id, comment)}
-              <img
-                src={comment.userImg ? comment.userImg : userIcon}
-                alt=""
-                className="post__comments--userImg"
-              />
-              <strong>{comment.writer}</strong>
-              <span className="post__comments--span">{comment.text}</span>
+              {/* {console.log('ID & CMT', id, comment)} */}
+              <div className="post__comments--main">
+                <img
+                  src={comment.userImg ? comment.userImg : userIcon}
+                  alt=""
+                  className="post__comments--userImg"
+                />
+                <strong>{comment.writer}</strong>
+                <span className="post__comments--span">{comment.text}</span>
+                <span className="post__header--timestamp">
+                  {postTime(comment.timestamp.seconds)}
+                </span>
+              </div>
               {user === comment.writer ? (
                 <div>
                   <button onClick={(e) => editComment(id)}>

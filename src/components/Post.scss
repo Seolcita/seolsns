@@ -41,6 +41,12 @@
       font-weight: normal;
       color: $color-blue-dark;
     }
+
+    &--timestamp {
+      color: $color-grey-medium;
+      font-weight: 400;
+      font-size: 1rem;
+    }
   }
 
   &__body {
@@ -80,9 +86,16 @@
     color: black;
 
     &--wrap {
+      margin-bottom: 0.2rem;
+
       display: flex;
       align-items: center;
-      margin-bottom: 0.2rem;
+      justify-content: space-between;
+    }
+
+    &--main {
+      display: flex;
+      align-items: center;
     }
 
     &--userImg {
@@ -99,7 +112,7 @@
 
     &--span {
       margin-left: 1rem;
-      margin-right: 3rem;
+      margin-right: 1rem;
     }
 
     button {
