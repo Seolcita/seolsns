@@ -82,6 +82,7 @@
     &--wrap {
       display: flex;
       align-items: center;
+      margin-bottom: 0.2rem;
     }
 
     &--userImg {
@@ -92,12 +93,21 @@
     }
 
     &--title {
-      margin-bottom: 5px;
+      margin-bottom: 1.5rem;
       color: $color-grey-medium;
     }
 
     &--span {
       margin-left: 1rem;
+      margin-right: 3rem;
+    }
+
+    button {
+      margin: 0.1rem;
+      padding: 0.3rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
     }
   }
 
@@ -121,5 +131,24 @@
       padding: 1rem;
       border: none;
     }
+  }
+}
+
+//Overriding Material UI Icons
+.edit-icon,
+.delete-icon {
+  font-size: 2rem !important;
+  color: $color-grey-medium !important;
+}
+
+.edit-icon {
+  &:hover {
+    color: rgb(23, 192, 249) !important;
+  }
+}
+
+.delete-icon {
+  &:hover {
+    color: #f7a5c7 !important;
   }
 }

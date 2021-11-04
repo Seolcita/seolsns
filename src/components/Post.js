@@ -10,7 +10,7 @@ import './Post.scss';
 import { Avatar } from '@material-ui/core';
 import userIcon from '../images/user.png';
 import { Modal } from '@material-ui/core';
-import { SettingsInputAntenna } from '@material-ui/icons';
+import { Edit, DeleteForever, RateReview } from '@material-ui/icons';
 
 function Post(props) {
   const { imageUrl, avatar, user, username, postId, caption, userImg } = props;
@@ -27,7 +27,8 @@ function Post(props) {
       .collection('posts')
       .doc(postId)
       .collection('comments')
-      .orderBy('timestamp', 'desc')
+      // .orderBy('timestamp', 'desc')
+      .orderBy('timestamp', 'asc')
       .onSnapshot((snapshot) => {
         setComments(
           snapshot.docs.map((doc) => ({ id: doc.id, comment: doc.data() }))
@@ -97,11 +98,13 @@ function Post(props) {
 
         {user === username ? (
           <div className="post__header--right">
-            <button onClick={(e) => setOpenEditPost(true)}>✏️</button>
+            <button onClick={(e) => setOpenEditPost(true)}>
+              <Edit className="edit-icon" />
+            </button>
             <button
               onClick={(e) => db.collection('posts').doc(postId).delete()}
             >
-              🗑
+              <DeleteForever className="delete-icon" />
             </button>
           </div>
         ) : (
@@ -120,7 +123,10 @@ function Post(props) {
       <div className="post__footer">
         <h4 className="post__footer--text">{caption}</h4>
         <div className="post__comments">
-          <p className="post__comments--title">Comments 💕</p>
+          <p className="post__comments--title">
+            Comments 
+            <RateReview />
+          </p>
           {comments.map(({ id, comment }) => (
             <p className="post__comments--wrap">
               {console.log('ID & CMT', id, comment)}
@@ -133,7 +139,9 @@ function Post(props) {
               <span className="post__comments--span">{comment.text}</span>
               {user === comment.writer ? (
                 <div>
-                  <button onClick={(e) => editComment(id)}>✏️</button>
+                  <button onClick={(e) => editComment(id)}>
+                    <Edit className="edit-icon" />
+                  </button>
                   <button
                     onClick={(e) =>
                       db
@@ -144,7 +152,7 @@ function Post(props) {
                         .delete()
                     }
                   >
-                    🗑
+                    <DeleteForever className="delete-icon" />
                   </button>
                 </div>
               ) : null}
