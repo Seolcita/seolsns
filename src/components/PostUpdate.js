@@ -110,6 +110,7 @@ function PostUpdate({ postId, setOpenEditPost }) {
   return (
     <div className="imageUpload">
       <div className="imageUpload__container">
+        <h1 className="imageUpload__title"> Edit Post </h1>
         <div className="imageUpload__inputs">
           <textarea
             type="text"

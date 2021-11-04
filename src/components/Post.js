@@ -139,8 +139,14 @@ function Post(props) {
           ''
         )}
 
-        <Modal open={openEditPost} onClose={(e) => setOpenEditPost(false)}>
-          <PostUpdate postId={postId} setOpenEditPost={setOpenEditPost} />
+        <Modal
+          open={openEditPost}
+          onClose={(e) => setOpenEditPost(false)}
+          className="modal"
+        >
+          <div className="modal__container">
+            <PostUpdate postId={postId} setOpenEditPost={setOpenEditPost} />
+          </div>
         </Modal>
       </div>
 

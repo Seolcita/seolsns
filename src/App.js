@@ -10,8 +10,6 @@ import ImageUpload from './components/ImageUpload';
 //Images
 import logo from './images/logo.png';
 import Post from './components/Post';
-import testImg from './images/test.jpeg';
-import avatar from './images/SeolHiKim.jpeg';
 
 // CSS & MUI icons/components
 import './App.scss';
@@ -177,10 +175,20 @@ const App = () => {
             <button type="submit" className="modal__form--btn" onClick={signIn}>
               Sign In
             </button>
-            <hr />
-            <button onClick={signInGoogle}>Sign In With Google</button>
-            <span>Do you want to join Seolstagram?</span>
-            <a onClick={() => setOpenSignup(true)}> Sign Up</a>
+            <hr className="modal__form--divider" />
+            <button onClick={signInGoogle} className="modal__form--btn">
+              <strong className="google">G</strong>
+              Sign In With Google
+            </button>
+            <p className="modal__form--signupText">
+              Do you want to join Seolstagram?
+              <a
+                onClick={() => setOpenSignup(true)}
+                className="modal__form--signupLink"
+              >
+                Sign Up
+              </a>
+            </p>
           </form>
         </div>
       </Modal>
@@ -235,13 +243,6 @@ const App = () => {
         </div>
       </div>
 
-      {/* Upload Post 
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} userAvatar={user?.photoURL} />
-      ) : (
-        <h3 className="login-message">*** Login to upload post ***</h3>
-      )}
-      */}
       {/* Contents */}
       {posts.map(({ id, post }) => (
         <Post

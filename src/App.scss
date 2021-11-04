@@ -7,11 +7,11 @@
   height: 100vh;
 
   &__header {
-    width: 100vw;
+    width: 40vw;
 
-    padding: 1rem 27%;
-    margin: 0;
-    border-bottom: 1px solid $color-green-medium;
+    padding: 3.5rem 5% 1.5%;
+    margin: 0 auto;
+    // border-bottom: 1px solid $color-green-medium;
 
     display: flex;
     justify-content: space-between;
@@ -22,8 +22,8 @@
       align-items: center;
 
       &--img {
-        width: 4rem;
-        height: 4rem;
+        width: 4.5rem;
+        height: 4.5rem;
         object-fit: contain;
         margin-right: 1.5rem;
       }
@@ -31,7 +31,7 @@
       &--title {
         // font-family: 'Amatic SC', cursive;
         font-family: 'Indie Flower', cursive;
-        font-size: 2rem;
+        font-size: 3.5rem;
       }
     }
 
@@ -51,6 +51,8 @@
 
     a {
       cursor: pointer;
+      font-size: 1.8rem;
+      margin-right: 0.5rem;
     }
 
     a:hover {
@@ -102,6 +104,7 @@
 
   &__form {
     width: 100%;
+    margin-top: 1rem;
 
     display: flex;
     flex-direction: column;
@@ -116,10 +119,64 @@
     &--input,
     &--btn {
       width: 50%;
-      height: 3rem;
+
       margin-bottom: 1rem;
       border: none;
+    }
+
+    &--input {
       padding: 5px;
+      height: 4rem;
+    }
+
+    &--btn {
+      background-color: $color-blue-dark;
+      color: $color-white;
+      height: 4rem;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+
+    &--divider {
+      color: $color-white;
+      border: 1px solid $color-white;
+      width: 50%;
+      margin: 1rem auto 2rem;
+    }
+
+    &--signupText {
+      color: $color-blue-dark;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    &--signupLink {
+      color: $color-blue-dark;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      letter-spacing: 1px;
+      border-bottom: 2px solid $color-blue-dark;
+      cursor: pointer;
+      // background-color: $color-blue-dark;
+      // border: 1px solid $color-blue-dark;
+      // padding: 5px;
+      // border-radius: 50px;
+
+      &:hover {
+        color: $color-grey-light;
+        border-bottom: 2px solid $color-grey-light;
+      }
     }
   }
 }
@@ -140,4 +197,10 @@
   text-align: center;
   margin: 4rem auto 0;
   letter-spacing: 1.2px;
+}
+
+.google {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-right: 0.8rem;
 }
