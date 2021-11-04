@@ -15,12 +15,14 @@ import avatar from './images/SeolHiKim.jpeg';
 
 // CSS & MUI icons/components
 import './App.scss';
-import { Modal, Input } from '@material-ui/core';
+import { Modal } from '@material-ui/core';
+import { PostAdd } from '@material-ui/icons';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
   const [openSignup, setOpenSignup] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
+  const [openAddPost, setOpenAddPost] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -183,6 +185,27 @@ const App = () => {
         </div>
       </Modal>
 
+      {/* Add Post */}
+      <Modal
+        open={openAddPost}
+        onClose={() => setOpenAddPost(false)}
+        className="modal"
+      >
+        <div className="modal__container">
+          {user?.displayName ? (
+            <ImageUpload
+              username={user.displayName}
+              userAvatar={user?.photoURL}
+              setOpenAddPost={setOpenAddPost}
+            />
+          ) : (
+            <h3 className="error-message">
+              *** Sorry, error occurred. Please try again. ***
+            </h3>
+          )}
+        </div>
+      </Modal>
+
       {/* Header */}
       <div className="app__header">
         <div className="app__header__logo">
@@ -196,25 +219,29 @@ const App = () => {
         <div className="app__header__auth">
           <span className="app__header__auth--status">
             {user ? (
-              <a onClick={() => auth.signOut()}> Logout</a>
+              <div className="app__logoutContainer">
+                <PostAdd
+                  onClick={() => setOpenAddPost(true)}
+                  className="addIcon"
+                />
+                <a onClick={() => auth.signOut()}> Logout</a>
+              </div>
             ) : (
               <div className="app__loginContainer">
                 <a onClick={() => setOpenSignIn(true)}> Sign In</a>
-                {/* <a onClick={() => setOpen(true)}> Sign Up</a> */}
               </div>
             )}
           </span>
         </div>
       </div>
 
-      {/* Upload Post */}
+      {/* Upload Post 
       {user?.displayName ? (
         <ImageUpload username={user.displayName} userAvatar={user?.photoURL} />
       ) : (
-        // <ImageUpload username={user.displayName} userImg={user.photoURL} />
         <h3 className="login-message">*** Login to upload post ***</h3>
       )}
-
+      */}
       {/* Contents */}
       {posts.map(({ id, post }) => (
         <Post

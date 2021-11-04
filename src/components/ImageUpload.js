@@ -7,7 +7,7 @@ import db, { storage } from '../firebase';
 //CSS
 import './ImageUpload.scss';
 
-function ImageUpload({ username, userAvatar }) {
+function ImageUpload({ username, userAvatar, setOpenAddPost }) {
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
 
@@ -50,6 +50,7 @@ function ImageUpload({ username, userAvatar }) {
 
           setCaption('');
           setImage(null);
+          setOpenAddPost(false);
         })
     );
   };
@@ -57,12 +58,16 @@ function ImageUpload({ username, userAvatar }) {
   return (
     <div className="imageUpload">
       <div className="imageUpload__container">
+        <h1 className="imageUpload__title"> Upload Post </h1>
         <div className="imageUpload__inputs">
           <textarea
             type="text"
             onChange={(e) => setCaption(e.target.value)}
             value={caption}
             placeholder="What's on your mind?"
+            rows="12"
+            cols="50"
+            maxlength="1000"
           />
 
           <input type="file" onChange={handleChange} />

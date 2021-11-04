@@ -38,7 +38,23 @@
     &__auth {
       &--status {
         font-size: 1.5rem;
+
+        display: flex;
+        align-items: center;
       }
+    }
+  }
+
+  &__logoutContainer {
+    display: flex;
+    align-items: center;
+
+    a {
+      cursor: pointer;
+    }
+
+    a:hover {
+      color: orange;
     }
   }
 }
@@ -66,6 +82,10 @@
       font-size: 3rem;
       color: $color-blue-dark;
       font-weight: 700;
+    }
+
+    &:focus {
+      outline: none;
     }
   }
 
@@ -104,7 +124,18 @@
   }
 }
 
-.login-message {
+// Override Material UI
+.addIcon {
+  font-size: 3rem !important;
+  margin-right: 2rem;
+  cursor: pointer;
+
+  &:hover {
+    color: orange;
+  }
+}
+
+.error-message {
   font-size: 2rem;
   text-align: center;
   margin: 4rem auto 0;
