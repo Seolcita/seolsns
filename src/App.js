@@ -26,6 +26,7 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
   const [{ userSNS }, dispatch] = useStateValue();
+  const [render, setRender] = useState(false);
   // const [state, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -64,7 +65,7 @@ const App = () => {
           }))
         );
       });
-  }, []);
+  }, [posts]);
 
   const signUp = (e) => {
     e.preventDefault();
@@ -178,7 +179,7 @@ const App = () => {
               Sign In
             </button>
             <hr className="modal__form--divider" />
-            <button onClick={signInGoogle} className="modal__form--btn">
+            <button onClick={signInGoogle} className="modal__form--btn hide">
               <strong className="google">G</strong>
               Sign In With Google
             </button>
@@ -256,7 +257,7 @@ const App = () => {
           caption={post.caption}
           userImg={user?.photoURL}
           avatar={post.userAvatar}
-          timeStamp={post.timestamp.seconds}
+          // timeStamp={post.timestamp.seconds}
         />
       ))}
     </div>

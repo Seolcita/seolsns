@@ -21,7 +21,7 @@ function Post(props) {
     postId,
     caption,
     userImg,
-    timeStamp,
+    // timeStamp,
   } = props;
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
@@ -43,7 +43,7 @@ function Post(props) {
         );
       });
 
-    console.log('comments from DB', comments);
+    //console.log('comments from DB', comments);
 
     return () => {
       unsubscribe();
@@ -119,8 +119,7 @@ function Post(props) {
           />
           <div>
             <h3 className="post__header--name">{username}</h3>
-            {/* <h5 className="post__header--timestamp">{timeStamp}</h5> */}
-            <h5 className="post__header--timestamp">{postTime(timeStamp)}</h5>
+            {/* <h5 className="post__header--timestamp">{postTime(timeStamp)}</h5> */}
           </div>
         </div>
 
@@ -144,7 +143,7 @@ function Post(props) {
           onClose={(e) => setOpenEditPost(false)}
           className="modal"
         >
-          <div className="modal__container">
+          <div className="modal__container modal__container--edit">
             <PostUpdate postId={postId} setOpenEditPost={setOpenEditPost} />
           </div>
         </Modal>
@@ -173,7 +172,7 @@ function Post(props) {
                 <strong>{comment.writer}</strong>
                 <span className="post__comments--span">{comment.text}</span>
                 <span className="post__header--timestamp">
-                  {postTime(comment.timestamp.seconds)}
+                  {/* {postTime(timeStamp)} */}
                 </span>
               </div>
               {user === comment.writer ? (
@@ -218,14 +217,20 @@ function Post(props) {
         <Modal
           open={openEditComment}
           onClose={(e) => setOpenEditComment(false)}
+          className="comment__modal"
         >
-          <div>
-            <input
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              // placeholder={comment}
-            ></input>
-            <button onClick={updateComment}>Update</button>
+          <div className="comment__container">
+            <h1 className="comment__title"> Edit Comment </h1>
+            <div className="comment__wrap">
+              <div className="comment__input">
+                <input
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  // placeholder={comment}
+                />
+                <button onClick={updateComment}>Update</button>
+              </div>
+            </div>
           </div>
         </Modal>
       </div>

@@ -116,6 +116,9 @@ function PostUpdate({ postId, setOpenEditPost }) {
             type="text"
             onChange={(e) => setCaption(e.target.value)}
             value={caption}
+            rows="12"
+            cols="50"
+            maxlength="1000"
             // placeholder={post.caption}
             // value={caption ? caption : post.caption}
             // placeholder={caption ? caption : post.caption}

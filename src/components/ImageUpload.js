@@ -51,6 +51,7 @@ function ImageUpload({ username, userAvatar, setOpenAddPost }) {
           setCaption('');
           setImage(null);
           setOpenAddPost(false);
+          // window.location.reload(true);
         })
     );
   };
