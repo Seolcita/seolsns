@@ -30,7 +30,7 @@ const App = () => {
   // const [state, dispatch] = useStateValue();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+    const unsubscribe = auth.onAuthStateChanged(authUser => {
       if (userSNS || authUser) {
         // user has logged in
         console.log('AUTH-USER', authUser);
@@ -57,9 +57,9 @@ const App = () => {
     //onSnapshot is a great listener. Whenever changes happen in db, it will capture it.
     db.collection('posts')
       .orderBy('timestamp', 'desc')
-      .onSnapshot((snapshot) => {
+      .onSnapshot(snapshot => {
         setPosts(
-          snapshot.docs.map((doc) => ({
+          snapshot.docs.map(doc => ({
             id: doc.id,
             post: doc.data(),
           }))
@@ -67,40 +67,40 @@ const App = () => {
       });
   }, [posts]);
 
-  const signUp = (e) => {
+  const signUp = e => {
     e.preventDefault();
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
+      .then(authUser => {
         return authUser.user.updateProfile({ displayName: username });
       })
-      .catch((err) => alert(err.message));
+      .catch(err => alert(err.message));
 
     setOpenSignup(false);
     setOpenSignIn(false);
   };
 
-  const signIn = (e) => {
+  const signIn = e => {
     e.preventDefault();
     auth
       .signInWithEmailAndPassword(email, password)
-      .catch((err) => alert(err.message));
+      .catch(err => alert(err.message));
 
     setOpenSignIn(false);
   };
 
-  const signInGoogle = (e) => {
+  const signInGoogle = e => {
     e.preventDefault();
     auth
       .signInWithPopup(provider)
-      .then((result) => {
+      .then(result => {
         console.log('GOOGLE', result);
         dispatch({
           type: actionTypes.SET_USER,
           userSNS: result.user,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         alert(error.message);
         console.log(error.message);
       });
@@ -108,41 +108,41 @@ const App = () => {
   };
 
   return (
-    <div className="app">
+    <div className='app'>
       {/* Sign Up */}
       <Modal
         open={openSignup}
         onClose={() => setOpenSignup(false)}
-        className="modal"
+        className='modal'
       >
-        <div className="modal__container">
-          <div className="modal__header">
-            <img className="modal__header--logo" src={logo} alt="ogo" />
-            <span className="modal__header--title">Seolstagram</span>
+        <div className='modal__container'>
+          <div className='modal__header'>
+            <img className='modal__header--logo' src={logo} alt='ogo' />
+            <span className='modal__header--title'>Seolstagram</span>
           </div>
-          <form className="modal__form">
+          <form className='modal__form'>
             <input
-              className="modal__form--input"
-              type="text"
-              placeholder="username"
+              className='modal__form--input'
+              type='text'
+              placeholder='username'
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={e => setUsername(e.target.value)}
             />
             <input
-              className="modal__form--input"
-              type="email"
-              placeholder="email"
+              className='modal__form--input'
+              type='email'
+              placeholder='email'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
             />
             <input
-              className="modal__form--input"
-              type="password"
-              placeholder="password"
+              className='modal__form--input'
+              type='password'
+              placeholder='password'
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
             />
-            <button type="submit" className="modal__form--btn" onClick={signUp}>
+            <button type='submit' className='modal__form--btn' onClick={signUp}>
               Sign Up
             </button>
           </form>
@@ -153,41 +153,41 @@ const App = () => {
       <Modal
         open={openSignIn}
         onClose={() => setOpenSignIn(false)}
-        className="modal"
+        className='modal'
       >
-        <div className="modal__container">
-          <div className="modal__header">
-            <img className="modal__header--logo" src={logo} alt="ogo" />
-            <span className="modal__header--title">Seolstagram</span>
+        <div className='modal__container'>
+          <div className='modal__header'>
+            <img className='modal__header--logo' src={logo} alt='ogo' />
+            <span className='modal__header--title'>Seolstagram</span>
           </div>
-          <form className="modal__form">
+          <form className='modal__form'>
             <input
-              className="modal__form--input"
-              type="email"
-              placeholder="email"
+              className='modal__form--input'
+              type='email'
+              placeholder='email'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
             />
             <input
-              className="modal__form--input"
-              type="password"
-              placeholder="password"
+              className='modal__form--input'
+              type='password'
+              placeholder='password'
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
             />
-            <button type="submit" className="modal__form--btn" onClick={signIn}>
+            <button type='submit' className='modal__form--btn' onClick={signIn}>
               Sign In
             </button>
-            <hr className="modal__form--divider" />
-            <button onClick={signInGoogle} className="modal__form--btn hide">
-              <strong className="google">G</strong>
+            <hr className='modal__form--divider hide' />
+            <button onClick={signInGoogle} className='modal__form--btn hide'>
+              <strong className='google'>G</strong>
               Sign In With Google
             </button>
-            <p className="modal__form--signupText">
+            <p className='modal__form--signupText'>
               Do you want to join Seolstagram?
               <a
                 onClick={() => setOpenSignup(true)}
-                className="modal__form--signupLink"
+                className='modal__form--signupLink'
               >
                 Sign Up
               </a>
@@ -200,9 +200,9 @@ const App = () => {
       <Modal
         open={openAddPost}
         onClose={() => setOpenAddPost(false)}
-        className="modal"
+        className='modal'
       >
-        <div className="modal__container">
+        <div className='modal__container'>
           {user?.displayName ? (
             <ImageUpload
               username={user.displayName}
@@ -210,7 +210,7 @@ const App = () => {
               setOpenAddPost={setOpenAddPost}
             />
           ) : (
-            <h3 className="error-message">
+            <h3 className='error-message'>
               *** Sorry, error occurred. Please try again. ***
             </h3>
           )}
@@ -218,27 +218,27 @@ const App = () => {
       </Modal>
 
       {/* Header */}
-      <div className="app__header">
-        <div className="app__header__logo">
+      <div className='app__header'>
+        <div className='app__header__logo'>
           <img
-            className="app__header__logo--img"
+            className='app__header__logo--img'
             src={logo}
-            alt="header image"
+            alt='header image'
           />
-          <span className="app__header__logo--title">Seolstagram</span>
+          <span className='app__header__logo--title'>Seolstagram</span>
         </div>
-        <div className="app__header__auth">
-          <span className="app__header__auth--status">
+        <div className='app__header__auth'>
+          <span className='app__header__auth--status'>
             {user ? (
-              <div className="app__logoutContainer">
+              <div className='app__logoutContainer'>
                 <PostAdd
                   onClick={() => setOpenAddPost(true)}
-                  className="addIcon"
+                  className='addIcon'
                 />
                 <a onClick={() => auth.signOut()}> Logout</a>
               </div>
             ) : (
-              <div className="app__loginContainer">
+              <div className='app__loginContainer'>
                 <a onClick={() => setOpenSignIn(true)}> Sign In</a>
               </div>
             )}
