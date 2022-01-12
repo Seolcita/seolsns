@@ -19,3 +19,9 @@ body {
   font-family: 'Roboto', sans-serif;
   color: $color-white;
 }
+
+input {
+  &:focus {
+    outline: none;
+  }
+}
